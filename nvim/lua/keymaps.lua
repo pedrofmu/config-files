@@ -59,3 +59,9 @@ vim.keymap.set("n", "<leader>mp", function()
 		timeout_ms = 500,
 	})
 end, opts)
+
+-- renombrar varibles
+vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true })
+
+-- Asigna un atajo para ver las sugerencias de cambio del cliente LSP
+vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
