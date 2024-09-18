@@ -19,8 +19,18 @@ compinit
 #Apartir de aqui esta escrito por pedrofm
 #instalar plugins
 source $HOME/.zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 #Remapear / para que haga una búsqueda inversa en el historial (Ctrl + r)
 bindkey -M vicmd '/' history-incremental-search-backward
@@ -66,10 +76,9 @@ function reset-cursor {
 }
 
 #Hacer que se traduzcan las rutas a su acronimo ej ~ en vez de /home/pedrofm
-setopt prompt_subst
+setopt PROMPT_SUBST
 
 #Configurar el prompt
-PS1='%F{green}%n@%m%F %F{blue}%~%f $ '
 
 # Función para determinar si estás en una Distrobox
 function is_in_distrobox {
@@ -82,12 +91,18 @@ function is_in_distrobox {
 
 # Configura el prompt basado en si estamos en una Distrobox
 function set_prompt {
-  if is_in_distrobox; then
-    # Configura el prompt para cuando estés dentro de una Distrobox
-    PS1="%F{green}📦[%n@$CONTAINER_ID]%F %F{blue}%~%f $ "
+  local prompt_root="%F{yellow}%n@%m %F{blue}%~%f # "
+  local prompt_user="%F{green}%n@%m %F{blue}%~%f $ "
+  
+  if [[ -n "$CONTAINER_ID" ]]; then
+    prompt_root="%F{yellow}📦[%n@$CONTAINER_ID]%F %F{blue}%~%f # "
+    prompt_user="%F{green}📦[%n@$CONTAINER_ID]%F %F{blue}%~%f $ "
+  fi
+
+  if [ $EUID -eq 0 ]; then
+    PS1=$prompt_root
   else
-    # Configura el prompt para cuando no estés dentro de una Distrobox
-    PS1='%F{green}%n@%m%F %F{blue}%~%f $ '
+    PS1=$prompt_user
   fi
 }
 
@@ -97,3 +112,6 @@ set_prompt
 # Asegúrate de llamar a set_prompt cuando cambies de directorio
 autoload -U add-zsh-hook
 add-zsh-hook chpwd set_prompt
+
+# Cambiar el path
+export PATH="$PATH:/home/pedrofm/.local/bin"
