@@ -33,8 +33,6 @@ elif [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
 fi
 
 #Remapear / para que haga una búsqueda inversa en el historial (Ctrl + r)
-bindkey -M vicmd '/' history-incremental-search-backward
-
 bindkey -M vicmd 'j' backward-char
 bindkey -M vicmd 'k' down-line-or-history 
 bindkey -M vicmd 'l' up-line-or-history 
@@ -115,3 +113,4 @@ add-zsh-hook chpwd set_prompt
 
 # Cambiar el path
 export PATH="$PATH:/home/pedrofm/.local/bin"
+. "/home/pedrofm/.deno/env"

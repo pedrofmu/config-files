@@ -60,7 +60,9 @@ fi
 
 file_3="/etc/ufw/before.rules"
 if [ -f "$file_3" ]; then
-  sed -i "1s|^|#NAT\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s $private_ip -o $public_interface -j MASQUERADE\nCOMMIT\n|" $file_3
+    if [! grep -q "#NAT\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s $private_ip -o $public_interface -j MASQUERADE\nCOMMIT\n" "$file_3"]; then
+        sed -i "1s|^|#NAT\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s $private_ip -o $public_interface -j MASQUERADE\nCOMMIT\n|" "$file_3"
+    fi
 fi
 
 ufw reload
