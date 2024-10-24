@@ -2,7 +2,7 @@
 
 mkdir -p $HOME/.zsh-plugins/
 
-git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh-plugins/.zsh-vi-mode
+git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh-plugins/zsh-vi-mode
 
 cp ./zshrc $HOME/.zshrc
 
