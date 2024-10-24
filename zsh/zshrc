@@ -111,6 +111,11 @@ set_prompt
 autoload -U add-zsh-hook
 add-zsh-hook chpwd set_prompt
 
+# que funcione correctamente el historial entre diferentes shells
+setopt inc_append_history
+
 # Cambiar el path
 export PATH="$PATH:/home/pedrofm/.local/bin"
 . "/home/pedrofm/.deno/env"
+
+alias go-dev="cd /home/pedrofm/programacion/dos-card-game/"
