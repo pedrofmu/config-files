@@ -16,7 +16,7 @@ NetPlan y UFW.
 ## Uso
 
 ```bash
-sudo ./script.sh <public_interface> <private_interface> <private_ip>
+sudo ./script.sh <public_interface> <private_interface> <private_ip/netmask>
 ```
 
 ## Descripción
@@ -38,3 +38,4 @@ sudo ./script.sh <public_interface> <private_interface> <private_ip>
 
 - El script crea copias de seguridad de archivos Netplan en `/etc/netplan/`.
 - Restaurar configuración: renombrar el archivo `.bak` y ejecutar `netplan apply`.
+- La private ip no es la de la red si no la del dipositivo, ej: 192.168.1.1/24 
