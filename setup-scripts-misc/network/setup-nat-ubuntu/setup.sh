@@ -17,7 +17,7 @@ if ! apt install -y ufw; then
 fi
 
 ufw allow OpenSSH
-ufw enable
+ufw --force enable
 
 # Configuración de red
 for file in /etc/netplan/*.yaml; do
@@ -43,7 +43,7 @@ network:
 EOF
 
 # Ajustar los permisos del archivo
-chmod 600 /etc/netplan/01-netcfg.yaml
+chmod 644 /etc/netplan/01-netcfg.yaml
 
 netplan apply
 
@@ -60,7 +60,7 @@ fi
 
 file_3="/etc/ufw/before.rules"
 if [ -f "$file_3" ]; then
-    if [! grep -q "#NAT\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s $private_ip -o $public_interface -j MASQUERADE\nCOMMIT\n" "$file_3"]; then
+    if ! grep -q "\-A POSTROUTING -s $private_ip -o $public_interface -j MASQUERADE" "$file_3"; then
         sed -i "1s|^|#NAT\n*nat\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -s $private_ip -o $public_interface -j MASQUERADE\nCOMMIT\n|" "$file_3"
     fi
 fi
