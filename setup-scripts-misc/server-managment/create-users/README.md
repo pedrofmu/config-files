@@ -6,7 +6,7 @@ This script creates a list of users from a file
 
 The format of a file has to be the following:
 
-- "<users>:<password>:<groups (separed by ',')>:<create home (0/1)>:<shell>"
+<users-name>:<password>:<groups (separed by ',')>:<create home (0/1)>:<shell>
 
 ## HOW TO USE:
 
