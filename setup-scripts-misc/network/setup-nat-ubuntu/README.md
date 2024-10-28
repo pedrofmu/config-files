@@ -1,41 +1,36 @@
-# Network Configuration and UFW Setup Script
+# Network Configuration and UFW Setup Script 
 
-## Overview
+## Overview 
 
-Este scirpt configura un servidor para redireccionar paquetes y aplicar el NAT. Esta pensado para
-Ubuntu Server 22.04 LTS, sin embargo debería funcionar en la mayoria de equipos que utilicen
-NetPlan y UFW.
+This scirpt configures a server to redirect packets and enforce NAT. It is designed for Ubuntu Server 22.04 LTS, however, should work on most computers that use NetPlan and UFW. 
 
-### Tareas principales:
-1. Instala y configura UFW.
-2. Permite conexiones OpenSSH.
-3. Configura interfaces de red con Netplan.
-4. Habilita IP forwarding y NAT.
+## Main tasks: 
 
+1. Install and configure UFW. 
+2. Allows OpenSSH connections. 
+3. Set up network interfaces with Netplan. 
+4. Enable IP forwarding and NAT. 
 
-## Uso
+## Application 
 
-```bash
-sudo ./script.sh <public_interface> <private_interface> <private_ip/netmask>
-```
+```bash 
+sudo ./script.sh <public_interface> <private_interface> <private_ip/netmask> 
+``` 
 
-## Descripción
+## Description 
 
-1. **Validación**: Comprueba si se pasaron los parámetros requeridos.
-2. **Instalación UFW**: Instala UFW y permite SSH.
-3. **Netplan**: Configura las interfaces públicas (DHCP) y privadas (IP estática).
-4. **NAT/IP Forwarding**: Habilita el reenvío de IP y configura NAT para la red privada.
-5. **Aplicación**: Se aplican los cambios con `netplan apply` y `ufw reload`.
-
-## Archivos Modificados
+1. **Validation**: Check if the required parameters were passed. 
+2. **UFW Installation**: Installs UFW and allows SSH. 
+3. **Netplan**: Configure the public (DHCP) and private (static IP) interfaces. 
+4. **NAT/IP Forwarding**: Enables IP forwarding and configures NAT for the private network. 
+5. **Application**: Changes with 'netplan apply' and 'ufw reload' are applied.## Archivos Modificados
 
 - `/etc/netplan/01-netcfg.yaml`
 - `/etc/ufw/sysctl.conf`
 - `/etc/default/ufw`
 - `/etc/ufw/before.rules`
 
-## Notas
-
-- El script crea copias de seguridad de archivos Netplan en `/etc/netplan/`.
-- Restaurar configuración: renombrar el archivo `.bak` y ejecutar `netplan apply`.
-- La private ip no es la de la red si no la del dipositivo, ej: 192.168.1.1/24 
+## Notes
+- The script creates Netplan file backups at '/etc/netplan/'. 
+- Restore settings: rename the file '.bak' and run 'netplan apply'. 
+- The private ip is not the network but the device, e.g. 192.168.1.1/24

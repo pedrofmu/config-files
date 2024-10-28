@@ -1,0 +1,3 @@
+profesor:1234:grupo0:1:/bin/bash
+alumno:678x:grupo2:0:/sbin/nologin
+test:admin:Grupo1,grupo2:0:/sbin/nologin
