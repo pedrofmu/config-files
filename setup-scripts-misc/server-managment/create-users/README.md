@@ -12,7 +12,7 @@ The format of a file has to be the following:
 
 1. Download the script 
 
-2. Modify the script changing the "archivo" variable by your file
+2. Modify the script changing the "archivo" variable to your file
 
 3. Run it
 
