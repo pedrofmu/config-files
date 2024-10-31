@@ -41,8 +41,8 @@ vim.keymap.set("x", "l", "k", opts)
 vim.keymap.set("x", "ñ", "l", opts)
 
 -- Usar neo tree
-vim.keymap.set("n", "<leader>t", ":Neotree <CR>", opts)
-vim.keymap.set("n", "<leader>ct", ":Neotree close<CR>", opts)
+vim.keymap.set("n", "<leader>t", ":Neotree float <CR>", opts)
+-- vim.keymap.set("n", "<leader>ct", ":Neotree close<CR>", opts)
 
 -- Usar telescope
 local builtin = require("telescope.builtin")

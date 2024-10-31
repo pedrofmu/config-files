@@ -8,6 +8,16 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
+--lsp_zero.tsserver.setup{
+--  -- Omitting some options
+--  root_dir = lsp_zero.util.root_pattern("package.json")
+--}
+--
+--lsp_zero.denols.setup {
+--  -- Omitting some options
+--  root_dir = lsp_zero.util.root_pattern("deno.json"),
+--}
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {},
