@@ -39,7 +39,7 @@ lspconfig.denols.setup({
 -- Configuración para el servidor tsserver
 lspconfig.tsserver.setup({
     on_attach = function(client, bufnr)
-        on_attach(client, bufnr)  -- Se usa la función definida
+        on_attach(client, bufnr)  -- Usamos la función definida
         vim.keymap.set('n', '<leader>ro', function()
             vim.lsp.buf.execute_command({
                 command = "_typescript.organizeImports",
@@ -47,16 +47,16 @@ lspconfig.tsserver.setup({
             })
         end, { buffer = bufnr, remap = false })
     end,
-    root_dir = function(filename, bufnr)
+    root_dir = function(filename)
         local denoRootDir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")(filename)
         if denoRootDir then
             -- Este es un proyecto Deno, no se adjunta tsserver
             return nil
         end
 
-        -- Si no es Deno, se verifica el package.json
-        return lspconfig.util.root_pattern("package.json")(filename)
+        -- Si no es Deno, entonces permitimos tsserver en cualquier carpeta (con o sin package.json)
+        return lspconfig.util.root_pattern("package.json", ".git")(filename) or vim.loop.cwd()
     end,
-    single_file_support = false,
+    single_file_support = true,  -- Esto permitirá que tsserver se ejecute incluso en archivos sueltos
 })
 
