@@ -10,7 +10,8 @@ while IFS= read -r linea; do
     done
   useradd -s "${array[4]}" -G "${array[2]}" -p "${array[1]}" "${array[0]}"
 
-  if [ "${array[3]}" == "1" ]; then
-        mkdir -p "/home/${array[0]}"
+  IFS=',' read -r -a home_array <<< "${array[3]}"
+  if [ "${home_array[0]}" == "1" ]; then
+        mkdir -p "${home_array[1]}"
   fi
 done < "$archivo" 
