@@ -1,0 +1,15 @@
+nom,cognom1,cognom2,usuari,dni,departament,Rol,Rol_empresa,Tipo_Perfil
+Anna,Zapata,Aragonés,azapata,17629125,Gestio,Cap,,local
+Begoña,Giménez,Bidasoa,bgimenez,68793380,Gestio,,,local
+Diego,Villar,Donoso,dvillar,59447770,Gestio,,,local
+Eva,Urbano,Espí,eurbano,50077898,Taller,,,obligatori
+Flor,Valls,Flores,fvalls,76222852,Taller,,,obligatori
+Germán,Sanchís,González,gsanchis,58678807,Taller,,,obligatori
+Helena,Rodríguez,Hiedra,hrodriguez,18658010,Taller,Cap,Soci,obligatori
+Izan,Quiroga,Ibáñez,iquiroga,45751581,Taller,,,obligatori
+Joan,Peris,Jáuregui,jperis,29075144,Implantacio,Cap,Soci,movil
+Kevin,Ortíz,Klein,kortiz,39931146,Implantacio,,,movil
+Lucas,Navarro,Leiva,lnavarro,54337789,Implantacio,,,movil
+Maria,Martí,Mondragón,mmarti,89911562,Implantacio,,,movil,
+Nuria,López,Naranjo,nlopez,57944719,Web,Cap,,local
+Pere,Jerez,Pla,pjerez,39962367,Web,,,local
