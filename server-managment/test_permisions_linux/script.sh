@@ -1,5 +1,5 @@
 #!/bin/bash
-archivo="newusers.txt"
+archivo="test.txt"
 
 # user(0) mode to try(1) path(2) expected result(3)
 while IFS= read -r line; do
