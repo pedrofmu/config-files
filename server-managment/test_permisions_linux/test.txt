@@ -1,0 +1,45 @@
+# user, mode to try (list-directory[l], create-file[w]), path, result (fail[0], correct[1])
+
+# programadores
+jmartinez,l,./src/,1
+jmartinez,l,./bin/,1
+jmartinez,l,./img/,0
+jmartinez,l,./docs/,1
+
+jmartinez,w,./src/,1
+jmartinez,w,./bin/,1
+jmartinez,w,./img/,0
+jmartinez,w,./docs/,1
+
+# dissenyadores
+fdiazdelahera,l,./src/,0
+fdiazdelahera,l,./bin/,1
+fdiazdelahera,l,./img/,1
+fdiazdelahera,l,./docs/,0
+
+fdiazdelahera,w,./src/,0
+fdiazdelahera,w,./bin/,0
+fdiazdelahera,w,./img/,1
+fdiazdelahera,w,./docs/,0
+
+#Beta-testers
+vgarcia,l,./src/,0
+vgarcia,l,./bin/,1
+vgarcia,l,./img/,0
+vgarcia,l,./docs/,0
+
+vgarcia,w,./src/,0
+vgarcia,w,./bin/,0
+vgarcia,w,./img/,0
+vgarcia,w,./docs/,0
+
+#Cap de proyecte
+lonogueira,w,./src/,1
+lonogueira,w,./bin/,1
+lonogueira,w,./img/,1
+lonogueira,w,./docs/,1
+
+lonogueira,l,./src/,1
+lonogueira,l,./bin/,1
+lonogueira,l,./img/,1
+lonogueira,l,./docs/,1
