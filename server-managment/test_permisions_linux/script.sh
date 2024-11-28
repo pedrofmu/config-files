@@ -1,11 +1,10 @@
-
 #!/bin/bash
-archivo="newusers.txt"
+archivo="test.txt"
 
 # Colores
-COLOR_SUCCESS='\033[0;32m'  # Verde para éxito
-COLOR_FAIL='\033[0;31m'     # Rojo para fallo
-COLOR_RESET='\033[0m'       # Restablecer el color al valor predeterminado
+COLOR_SUCCESS='\033[0;32m'  
+COLOR_FAIL='\033[0;31m'     
+COLOR_RESET='\033[0m'       
 
 # user(0) mode to try(1) path(2) expected result(3)
 while IFS= read -r line; do
@@ -30,30 +29,30 @@ while IFS= read -r line; do
         # Probar si el usuario tiene permisos de lectura
         if sudo -u "$usuario" test -r "$ruta"; then
             if [[ "$esperado" == "1" ]]; then
-                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
-                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
         else
             if [[ "$esperado" == "1" ]]; then
-                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
-                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
         fi
     elif [[ "$modo" == "w" ]]; then
         # Probar si el usuario tiene permisos de escritura
         if sudo -u "$usuario" test -w "$ruta"; then
             if [[ "$esperado" == "1" ]]; then
-                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
-                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
         else
             if [[ "$esperado" == "1" ]]; then
-                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
-                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET}"
+                echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
         fi
     fi
