@@ -26,8 +26,9 @@ while IFS= read -r line; do
     esperado="${entry[3]}"
 
     if [[ "$modo" == "l" ]]; then
-        # Probar si el usuario tiene permisos de lectura
-        if sudo -u "$usuario" test -r "$ruta"; then
+        # Probar si el usuario puede hacer ls en el directorio 
+        sudo -u "$usuario" ls "$ruta"
+        if [ $? -eq 0 ]; then
             if [[ "$esperado" == "1" ]]; then
                 echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
@@ -41,8 +42,9 @@ while IFS= read -r line; do
             fi
         fi
     elif [[ "$modo" == "w" ]]; then
+        sudo -u "$usuario" touch "${ruta}{$usuario}ñalskjdf134"
         # Probar si el usuario tiene permisos de escritura
-        if sudo -u "$usuario" test -w "$ruta"; then
+        if $? -eq 0; then
             if [[ "$esperado" == "1" ]]; then
                 echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
@@ -55,5 +57,6 @@ while IFS= read -r line; do
                 echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
         fi
+        sudo -u "$usuario" rm "${ruta}{$usuario}ñalskjdf134"
     fi
 done < "$archivo"
