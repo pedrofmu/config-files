@@ -44,12 +44,13 @@ while IFS= read -r line; do
     elif [[ "$modo" == "w" ]]; then
         sudo -u "$usuario" touch "${ruta}{$usuario}ñalskjdf134"
         # Probar si el usuario tiene permisos de escritura
-        if $? -eq 0; then
+        if [ $? -eq 0 ]; then
             if [[ "$esperado" == "1" ]]; then
                 echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             else
                 echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
+            sudo -u "$usuario" rm "${ruta}{$usuario}ñalskjdf134"
         else
             if [[ "$esperado" == "1" ]]; then
                 echo -e "${COLOR_FAIL}fail in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
@@ -57,6 +58,5 @@ while IFS= read -r line; do
                 echo -e "${COLOR_SUCCESS}success in $usuario $modo $ruta${COLOR_RESET} expected ${esperado}"
             fi
         fi
-        sudo -u "$usuario" rm "${ruta}{$usuario}ñalskjdf134"
     fi
 done < "$archivo"
