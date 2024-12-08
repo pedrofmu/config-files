@@ -34,9 +34,9 @@ require("lazy").setup({
         dependencies = {
             "lspkind.nvim",
             "hrsh7th/cmp-nvim-lsp", -- lsp auto-completion
-            "hrsh7th/cmp-buffer", -- buffer auto-completion
-            "hrsh7th/cmp-path", -- path auto-completion
-            "hrsh7th/cmp-cmdline", -- cmdline auto-completion
+            "hrsh7th/cmp-buffer",   -- buffer auto-completion
+            "hrsh7th/cmp-path",     -- path auto-completion
+            "hrsh7th/cmp-cmdline",  -- cmdline auto-completion
         },
         config = function()
             require("config.nvim-cmp")
@@ -80,4 +80,24 @@ require("lazy").setup({
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
+    {
+        "antosha417/nvim-lsp-file-operations",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            -- Uncomment whichever supported plugin(s) you use
+            -- "nvim-tree/nvim-tree.lua",
+            "nvim-neo-tree/neo-tree.nvim",
+            -- "simonmclean/triptych.nvim"
+        },
+        config = function()
+            require("lsp-file-operations").setup()
+        end,
+    },
+    {
+        "startup-nvim/startup.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope-file-browser.nvim" },
+        config = function()
+            require"startup".setup(require"config.startup-nvim")
+        end
+    }
 })

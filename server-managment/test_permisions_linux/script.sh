@@ -3,8 +3,8 @@ archivo="test.txt"
 
 # Colores
 COLOR_SUCCESS='\033[0;32m'  
-COLOR_FAIL='\033[0;31m'     
-COLOR_RESET='\033[0m'       
+COLOR_FAIL='\033[0;31m'
+COLOR_RESET='\033[0m'     
 
 # user(0) mode to try(1) path(2) expected result(3)
 while IFS= read -r line; do
