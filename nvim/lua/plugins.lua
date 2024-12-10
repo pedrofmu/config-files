@@ -99,5 +99,8 @@ require("lazy").setup({
         config = function()
             require"startup".setup(require"config.startup-nvim")
         end
+    },
+    {
+        "ThePrimeagen/harpoon"
     }
 })

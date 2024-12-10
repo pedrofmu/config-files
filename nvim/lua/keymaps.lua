@@ -61,7 +61,11 @@ vim.keymap.set("n", "<leader>mp", function()
 end, opts)
 
 -- renombrar varibles
-vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 -- Asigna un atajo para ver las sugerencias de cambio del cliente LSP
-vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+-- Keymaps para harpoon
+vim.api.nvim_set_keymap('n', '<leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>hs', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)

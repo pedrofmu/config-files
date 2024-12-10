@@ -33,7 +33,7 @@ lspconfig.denols.setup({
             },
         },
     },
-    on_attach = on_attach,  
+    on_attach = on_attach,
 })
 
 -- Configuración para el servidor tsserver
@@ -57,6 +57,6 @@ lspconfig.tsserver.setup({
         -- Si no es Deno, entonces permitimos tsserver en cualquier carpeta (con o sin package.json)
         return lspconfig.util.root_pattern("package.json", ".git")(filename) or vim.loop.cwd()
     end,
-    single_file_support = true,  -- Esto permitirá que tsserver se ejecute incluso en archivos sueltos
+    single_file_support = false,
 })
 

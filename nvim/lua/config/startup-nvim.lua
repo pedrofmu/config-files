@@ -15,6 +15,7 @@ end
 for key, file in pairs(user_bookmarks) do
     user_bookmark_mappings[key] = "<cmd>e " .. file .. "<CR>"
 end
+
 local cow = {
     "        \\   ^__^",
     "         \\  (oo)\\_______",
@@ -23,12 +24,29 @@ local cow = {
     "                ||     ||",
 }
 
-local quote = require("startup.functions").quote()
+-- Función para obtener una cita del comando `fortune`
+local function get_fortune()
+    local handle = io.popen("fortune")
+    local result = handle:read("*a")
+    handle:close()
+    return result
+end
+
+-- Divide la salida del comando `fortune` en líneas
+local function split_lines(input)
+    local lines = {}
+    for line in input:gmatch("([^\n]*)\n?") do
+        table.insert(lines, line)
+    end
+    return lines
+end
+
+local quote = split_lines(get_fortune())
 while true do
     if require("startup.utils").longest_line(quote) <= vim.o.columns - 15 then
         break
     end
-    quote = require("startup.functions").quote()
+    quote = split_lines(get_fortune())
 end
 local length = require("startup.utils").longest_line(quote) + 4
 
