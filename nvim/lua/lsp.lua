@@ -8,21 +8,19 @@ require("mason").setup({
     },
 })
 
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup({
-    ensure_installed = { "pylsp", "lua_ls", "clangd", "html", "cssls", "tsserver", "denols" },
+    ensure_installed = { "pylsp", "lua_ls", "clangd", "html", "cssls", "ts_ls", "denols" },
+    capabilities = lsp_capabilities,
 })
 
-local lspconfig = require("lspconfig")
-
-local function on_attach(client, bufnr)
-end
-
+local lspconfig = require("lspconfig");
 -- Configuración para el servidor denols
 lspconfig.denols.setup({
+    capabilities = lsp_capabilities,
     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     init_options = {
         lint = true,
-        unstable = true,
         suggest = {
             imports = {
                 hosts = {
@@ -33,20 +31,16 @@ lspconfig.denols.setup({
             },
         },
     },
-    on_attach = on_attach,
 })
 
 -- Configuración para el servidor tsserver
-lspconfig.tsserver.setup({
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)  -- Usamos la función definida
-        vim.keymap.set('n', '<leader>ro', function()
-            vim.lsp.buf.execute_command({
-                command = "_typescript.organizeImports",
-                arguments = { vim.fn.expand("%:p") }
-            })
-        end, { buffer = bufnr, remap = false })
-    end,
+lspconfig.ts_ls.setup({
+    settings = {
+        completions = {
+            completeFunctionCalls = true
+        },
+    },
+    capabilities = lsp_capabilities,
     root_dir = function(filename)
         local denoRootDir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")(filename)
         if denoRootDir then
@@ -59,4 +53,3 @@ lspconfig.tsserver.setup({
     end,
     single_file_support = false,
 })
-

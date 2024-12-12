@@ -41,7 +41,7 @@ vim.keymap.set("x", "l", "k", opts)
 vim.keymap.set("x", "ñ", "l", opts)
 
 -- Usar neo tree
-vim.keymap.set("n", "<leader>t", ":Neotree float <CR>", opts)
+vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", opts)
 -- vim.keymap.set("n", "<leader>ct", ":Neotree close<CR>", opts)
 
 -- Usar telescope
@@ -65,6 +65,10 @@ vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", 
 
 -- Asigna un atajo para ver las sugerencias de cambio del cliente LSP
 vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+-- Ver propiedades el elemento LSP
+vim.api.nvim_set_keymap('n', '<leader>sd', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
 
 -- Keymaps para harpoon
 vim.api.nvim_set_keymap('n', '<leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>', opts)

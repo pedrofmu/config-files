@@ -32,20 +32,28 @@ require("lazy").setup({
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "lspkind.nvim",
+            "onsails/lspkind.nvim",
             "hrsh7th/cmp-nvim-lsp", -- lsp auto-completion
             "hrsh7th/cmp-buffer",   -- buffer auto-completion
             "hrsh7th/cmp-path",     -- path auto-completion
             "hrsh7th/cmp-cmdline",  -- cmdline auto-completion
+            "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
             require("config.nvim-cmp")
         end,
     },
+
     -- Code snippet engine
+    "rafamadriz/friendly-snippets",
+    "saadparwaiz1/cmp_luasnip",
     {
         "L3MON4D3/LuaSnip",
-        version = "v2.*",
+        build = "make install_jsregexp",
+        dependencies = { 'rafamadriz/friendly-snippets', 'saadparwaiz1/cmp_luasnip' },
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
     },
 
     -- LSP manager
@@ -63,18 +71,17 @@ require("lazy").setup({
     },
 
     -- nerd tree
+    "nvim-tree/nvim-web-devicons",
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- opcional, para iconos de archivos
-            "MunifTanjim/nui.nvim",
-            "3rd/image.nvim"
+            "nvim-tree/nvim-web-devicons",
         },
         config = function()
-            require('config.neo-tree')
-        end,
+            require("config.nvim-tree")
+        end
     },
     {
         'nvim-telescope/telescope.nvim',
@@ -85,8 +92,8 @@ require("lazy").setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
             -- Uncomment whichever supported plugin(s) you use
-            -- "nvim-tree/nvim-tree.lua",
-            "nvim-neo-tree/neo-tree.nvim",
+            "nvim-tree/nvim-tree.lua",
+            -- "nvim-neo-tree/neo-tree.nvim",
             -- "simonmclean/triptych.nvim"
         },
         config = function()
@@ -97,10 +104,10 @@ require("lazy").setup({
         "startup-nvim/startup.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope-file-browser.nvim" },
         config = function()
-            require"startup".setup(require"config.startup-nvim")
+            require "startup".setup(require "config.startup-nvim")
         end
     },
     {
         "ThePrimeagen/harpoon"
-    }
+    },
 })

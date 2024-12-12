@@ -37,23 +37,20 @@ cmp.setup({
         end, { "i", "s" }),
     }),
     formatting = {
-        fields = { 'abbr' },
-        format = function(entry, vim_item)
-            vim_item.menu = ({
-                nvim_lsp = '[LSP]',
-                luasnip = '[Snippet]',
-                path = '[Path]',
-            })[entry.source.name]
-            return vim_item
+        fields = { 'abbr', 'kind' },
+        format = function(entry, item)
+            return item
         end,
     },
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'path' },
+        { name = "luasnip" },
+        { name = "nvim_lsp" },
+        { name = "nvim_lua" },
+        { name = "buffer" },
+        { name = "path" },
     }),
     window = {
         completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        documentaion = cmp.config.window.bordered(),
     },
 })
