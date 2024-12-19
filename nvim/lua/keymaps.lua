@@ -69,7 +69,6 @@ vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<C
 -- Ver propiedades el elemento LSP
 vim.api.nvim_set_keymap('n', '<leader>sd', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
-
 -- Keymaps para harpoon
 vim.api.nvim_set_keymap('n', '<leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>hs', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)

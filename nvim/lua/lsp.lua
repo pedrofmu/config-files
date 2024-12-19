@@ -10,13 +10,18 @@ require("mason").setup({
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup({
-    ensure_installed = { "pylsp", "lua_ls", "clangd", "html", "cssls", "ts_ls", "denols" },
+    ensure_installed = { "pylsp", "lua_ls", "clangd", "html", "cssls", "ts_ls", "denols", "bashls", "powershell_es" },
     capabilities = lsp_capabilities,
 })
 
 local lspconfig = require("lspconfig");
 -- Configuración para el servidor denols
 lspconfig.denols.setup({
+    settings = {
+        completions = {
+            completeFunctionCalls = true
+        },
+    },
     capabilities = lsp_capabilities,
     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     init_options = {

@@ -13,7 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- add all the plugins
 require("lazy").setup({
-    { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 }, -- download the colorsheme
+    --    { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
+    { "olimorris/onedarkpro.nvim", priority = 1000 },
     -- Vscode-like pictograms
     {
         "onsails/lspkind.nvim",
@@ -109,5 +110,5 @@ require("lazy").setup({
     },
     {
         "ThePrimeagen/harpoon"
-    },
+    }
 })

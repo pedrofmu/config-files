@@ -1,5 +1,15 @@
 require("nvim-tree").setup {
-    on_attach = "default",
+    on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+
+        api.config.mappings.default_on_attach(bufnr)
+
+        local function opts(desc)
+            return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+
+        vim.keymap.set("n", "<ESC>", api.tree.close, opts("Close"))
+    end,
     hijack_cursor = false,
     auto_reload_on_write = true,
     disable_netrw = false,
@@ -79,7 +89,7 @@ require("nvim-tree").setup {
                     color = true,
                 },
             },
-            git_placement = "before",
+            git_placement = "after",
             modified_placement = "after",
             hidden_placement = "after",
             diagnostics_placement = "signcolumn",
@@ -113,13 +123,13 @@ require("nvim-tree").setup {
                     symlink_open = "",
                 },
                 git = {
-                    unstaged = "✗",
+                    unstaged = "[U]",
                     staged = "✓",
                     unmerged = "",
-                    renamed = "➜",
-                    untracked = "★",
-                    deleted = "",
-                    ignored = "◌",
+                    renamed = "[R]",
+                    untracked = "[N]",
+                    deleted = "[D]",
+                    ignored = "[I]",
                 },
             },
         },
@@ -149,18 +159,15 @@ require("nvim-tree").setup {
         cygwin_support = false,
     },
     diagnostics = {
-        enable = false,
+        enable = true,
         show_on_dirs = false,
         show_on_open_dirs = true,
         debounce_delay = 500,
         severity = {
-            min = vim.diagnostic.severity.HINT,
             max = vim.diagnostic.severity.ERROR,
         },
         icons = {
-            hint = "",
-            info = "",
-            warning = "",
+            warning = "",
             error = "",
         },
     },
