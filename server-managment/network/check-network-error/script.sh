@@ -27,43 +27,89 @@ to_dotted_dec() {
 
 display_help() {
     case "$1" in
-        "gateway_missing") echo "the route is not configured, you can try configuring a static ip or setting up a DHCP server." 
+        "gateway_missing")
+            echo "The route is not configured. You can try configuring a static IP or setting up a DHCP server."
+            echo "Helpful links:"
+            echo "- How to set a static IP: https://www.baeldung.com/linux/set-static-ip-address"
+            echo "- Setting up a DHCP server: https://ubuntu.com/server/docs/about-dynamic-host-configuration-protocol-dhcp"
         ;;
-        "gateway_unreacheable") echo "gateway is unreachable, it might be a problem with the firewall or a gateway not present in your network" 
+        "gateway_unreacheable")
+            echo "The gateway is unreachable. This might be a problem with the firewall or a missing gateway in your network."
+            echo "Helpful links:"
+            echo "- Troubleshooting firewalls: https://wiki.archlinux.org/title/Firewalls"
+            echo "- Understanding network gateways: https://en.wikipedia.org/wiki/Default_gateway"
         ;;
-        "ping_internet_failed") echo "ping internet failed, it might be a bad configuration in the routing" 
+        "ping_internet_failed")
+            echo "Ping to the internet failed. This might indicate a routing misconfiguration."
+            echo "Helpful links:"
+            echo "- Debugging routing issues: https://linux.die.net/man/8/route"
         ;;
-        "dns_resolve_failed") echo "the resolve DNS didnt work, check the dns client configuration and the DNS server configuration" 
+        "dns_resolve_failed")
+            echo "DNS resolution did not work. Check your DNS client configuration and the DNS server configuration."
+            echo "Helpful links:"
+            echo "- Configuring DNS client: https://www.cyberciti.biz/tips/linux-how-to-setup-as-dns-client.html"
+            echo "- Set your own DNS server: https://ubuntu.com/server/docs/domain-name-service-dns"
         ;;
-        *) echo default
+        *)
+            echo "Default: No specific help available for this case."
         ;;
     esac
 }
 
-try_dhcp() {
-    posible_dhcp_clients="dhclient dhcpd" 
 
-    for dhcp_client in $posible_dhcp_clients 
-    do
-        command -v $dhcp_client > /dev/null 2>&1 
+try_dhcp() {
+    posible_dhcp_clients="dhclient dhcpd udhcpc connmanctl nmcli"
+
+    for dhcp_client in $posible_dhcp_clients; do
+        command -v $dhcp_client > /dev/null 2>&1
         if [ $? -eq 0 ]; then
-            echo "use the root password"
+            echo "Using DHCP client: $dhcp_client"
+            echo "Use the root password if prompted"
             case "$dhcp_client" in
                 "dhclient")
                     su -c "dhclient -r && dhclient"
-                    sleep 10 
                 ;;
-                *) echo "error not implemented dhcp client" 
+                "dhcpd")
+                    su -c "dhcpcd -k && dhcpcd"
+                ;;
+                "udhcpc")
+                    interface=$(ip route | awk '/default/ {print $5; exit}')
+                    if [ -z "$interface" ]; then
+                        echo "No default interface found for udhcpc."
+                        continue
+                    fi
+                    su -c "udhcpc -i $interface"
+                ;;
+                "connmanctl")
+                    service_name=$(su -c "connmanctl services" | awk '/ethernet/ {print $NF; exit}')
+                    if [ -z "$service_name" ]; then
+                        echo "No Ethernet service found."
+                        return 1
+                    fi
+                    su -c "connmanctl config $service_name --ipv4 dhcp"
+                ;;
+                "nmcli")
+                    su -c "nmcli networking off && nmcli networking on"
+                ;;
+                *)
+                    echo "Error: not implemented for DHCP client $dhcp_client."
                 ;;
             esac
+            break
         fi
     done
+
+    sleep 10
+
     GATEWAY=$(ip route | awk '/default/ {print $3; exit}')
     if [ -z "$GATEWAY" ]; then
         echo "Failed to obtain a gateway via DHCP."
         return 1
+    else
+        echo "Gateway obtained: $GATEWAY"
     fi
 }
+
 
 scan_local_network() {
     interface=$(ip route | grep "default" | head -n 1 | grep -oP 'dev \K[^\s]+')
