@@ -1,0 +1,38 @@
+# Emular los bindings de Emacs en Bash
+set editing-mode emacs
+
+# Ctrl-A para ir al inicio de la línea
+"\C-a": beginning-of-line
+
+# Ctrl-E para ir al final de la línea
+"\C-e": end-of-line
+
+# Ctrl-U para borrar desde el cursor hasta el inicio
+"\C-u": unix-line-discard
+
+# Ctrl-K para borrar desde el cursor hasta el final
+"\C-k": kill-line
+
+# Ctrl-Y para pegar (yank)
+"\C-y": yank
+
+# Ctrl-P para ir al historial anterior
+"\C-p": previous-history
+
+# Ctrl-N para ir al historial siguiente
+"\C-n": next-history
+
+# Ctrl-R para buscar en el historial
+"\C-r": reverse-search-history
+
+# Ctrl-L para limpiar la pantalla
+"\C-l": clear-screen
+
+# Configurar Ctrl + flechas para saltar palabras
+"\e[1;5C": forward-word       # Ctrl + Right Arrow para avanzar una palabra
+"\e[1;5D": backward-word      # Ctrl + Left Arrow para retroceder una palabra
+
+# Configurar Ctrl + Backspace/Delete para borrar palabras
+"\C-h": backward-kill-word   # Ctrl + Backspace para borrar la palabra anterior
+"\e[3;5~": kill-word         # Ctrl + Delete para borrar la palabra siguiente
+

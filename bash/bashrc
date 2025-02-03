@@ -1,0 +1,30 @@
+# Archivo de historial
+HISTFILE=~/.bash_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+# Alias y remapeo
+alias ls="ls -1 --color=auto -p"
+
+# Configurar el prompt
+function set_prompt {
+    local prompt_root="\[\033[33m\]\u@\h \[\033[34m\]\w\[\033[0m\] # "
+    local prompt_user="\[\033[32m\]\u@\h \[\033[34m\]\w\[\033[0m\] $ "
+
+    if [[ $EUID -eq 0 ]]; then
+        PS1=$prompt_root
+    else
+        PS1=$prompt_user
+    fi
+}
+
+# Llama a la función para establecer el prompt
+set_prompt
+
+# Asegúrate de que el prompt cambie al cambiar de directorio
+PROMPT_COMMAND=set_prompt
+
+# Cambiar el PATH
+export PATH="$PATH:/home/$USER/.local/bin"
+. "/home/$USER/.deno/env"
+. "$HOME/.atuin/bin/env"
