@@ -152,8 +152,8 @@ require("nvim-tree").setup {
     },
     git = {
         enable = true,
-        show_on_dirs = true,
-        show_on_open_dirs = true,
+        show_on_dirs = false,
+        show_on_open_dirs = false,
         disable_for_dirs = {},
         timeout = 400,
         cygwin_support = false,
@@ -161,15 +161,7 @@ require("nvim-tree").setup {
     diagnostics = {
         enable = true,
         show_on_dirs = false,
-        show_on_open_dirs = true,
-        debounce_delay = 500,
-        severity = {
-            max = vim.diagnostic.severity.ERROR,
-        },
-        icons = {
-            warning = "",
-            error = "",
-        },
+        show_on_open_dirs = false,
     },
     modified = {
         enable = false,
