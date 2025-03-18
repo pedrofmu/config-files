@@ -15,15 +15,15 @@ cmp.setup({
     },
     mapping = cmp.mapping.preset.insert({
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback() -- Siempre usa fallback() cuando no hay opciones de completado
-            end
-        end, { "i", "s" }),
+--        ["<Tab>"] = cmp.mapping(function(fallback)
+--            if cmp.visible() then
+--                cmp.select_next_item()
+--            elseif luasnip.expand_or_jumpable() then
+--                luasnip.expand_or_jump()
+--            else
+--                fallback() -- Siempre usa fallback() cuando no hay opciones de completado
+--            end
+--        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()

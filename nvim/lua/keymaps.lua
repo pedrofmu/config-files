@@ -13,10 +13,10 @@ vim.g.mapleader = " "
 
 -- Hint: see `:h vim.map.set()`
 -- Better window navigation
-vim.keymap.set("n", "<leader>j", "<C-w>h", opts)
-vim.keymap.set("n", "<leader>k", "<C-w>j", opts)
-vim.keymap.set("n", "<leader>l", "<C-w>k", opts)
-vim.keymap.set("n", "<leader>ñ", "<C-w>l", opts)
+--vim.keymap.set("n", "<leader>j", "<C-w>h", opts)
+--vim.keymap.set("n", "<leader>k", "<C-w>j", opts)
+--vim.keymap.set("n", "<leader>l", "<C-w>k", opts)
+--vim.keymap.set("n", "<leader>ñ", "<C-w>l", opts)
 
 -- Resize with arrows
 -- delta: 2 lines
@@ -30,15 +30,15 @@ vim.keymap.set("n", "<leader>h", "<C-w>n", opts)
 vim.keymap.set("n", "<leader>v", "<C-w>v", opts)
 
 -- Change navigation
-vim.keymap.set("n", "j", "h", opts)
-vim.keymap.set("n", "k", "j", opts)
-vim.keymap.set("n", "l", "k", opts)
-vim.keymap.set("n", "ñ", "l", opts)
-
-vim.keymap.set("x", "j", "h", opts)
-vim.keymap.set("x", "k", "j", opts)
-vim.keymap.set("x", "l", "k", opts)
-vim.keymap.set("x", "ñ", "l", opts)
+--vim.keymap.set("n", "j", "h", opts)
+--vim.keymap.set("n", "k", "j", opts)
+--vim.keymap.set("n", "l", "k", opts)
+--vim.keymap.set("n", "ñ", "l", opts)
+--
+--vim.keymap.set("x", "j", "h", opts)
+--vim.keymap.set("x", "k", "j", opts)
+--vim.keymap.set("x", "l", "k", opts)
+--vim.keymap.set("x", "ñ", "l", opts)
 
 -- Usar neo tree
 vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", opts)

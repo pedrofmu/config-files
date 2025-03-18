@@ -7,9 +7,12 @@
 --end
 --
 require("onedarkpro").setup({
-  highlights = {
-    NvimTreeHighlights = { fg = "#FF0000" },
-  }
+  on_highlights = function(highlights, colors)
+    highlights.NvimTreeRootFolder = { fg = colors.purple }
+    highlights.NvimTreeFolderIcon = { fg = colors.purple }
+    highlights.NvimTreeOpenedFolderName = { fg = colors.purple }
+    highlights.NvimTreeOpenedFile = { fg = colors.purple }
+  end
 })
 
 vim.cmd("colorscheme onedark")
