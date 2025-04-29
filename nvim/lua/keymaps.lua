@@ -69,6 +69,12 @@ vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<C
 -- Ver propiedades el elemento LSP
 vim.api.nvim_set_keymap('n', '<leader>sd', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
+-- Show all diagnostics (in a floating window or location list)
+vim.api.nvim_set_keymap("n", "<leader>da", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+
+-- Show diagnostics for the current line in a floating window
+vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+
 -- Keymaps para harpoon
 vim.api.nvim_set_keymap('n', '<leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>hs', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)

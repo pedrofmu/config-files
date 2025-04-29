@@ -118,4 +118,5 @@ require("lazy").setup({
             require("config.nvim-ufo")
         end
     },
+    'nelsyeung/twig.vim',
 })
