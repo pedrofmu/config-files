@@ -52,13 +52,7 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, opts)
 
 -- format
 local conform = require("conform")
-vim.keymap.set("n", "<leader>mp", function()
-	conform.format({
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 500,
-	})
-end, opts)
+vim.keymap.set("n", "<leader>mp", '<cmd>lua require("conform").format()<CR>', opts)
 
 -- renombrar varibles
 vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)

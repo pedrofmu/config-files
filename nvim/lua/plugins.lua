@@ -109,7 +109,8 @@ require("lazy").setup({
         end
     },
     {
-        "ThePrimeagen/harpoon"
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
     },
     {
         'kevinhwang91/nvim-ufo',
@@ -119,4 +120,5 @@ require("lazy").setup({
         end
     },
     'nelsyeung/twig.vim',
+    { 'wakatime/vim-wakatime',     lazy = false },
 })

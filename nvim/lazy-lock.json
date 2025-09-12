@@ -25,5 +25,6 @@
   "startup.nvim": { "branch": "master", "commit": "9ca3b9a55f2f2196ef90b39a52029b46fdde5226" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "626998e5c1b71c130d8bc6cf7abb6709b98287bb" },
   "telescope.nvim": { "branch": "master", "commit": "a4ed82509cecc56df1c7138920a1aeaf246c0ac5" },
-  "twig.vim": { "branch": "master", "commit": "014cd47d795351f0f19f48323a3399831842d295" }
+  "twig.vim": { "branch": "master", "commit": "014cd47d795351f0f19f48323a3399831842d295" },
+  "vim-wakatime": { "branch": "master", "commit": "7b53ba7882ba28b91b571fa4ffb2755378086837" }
 }

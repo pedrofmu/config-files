@@ -39,6 +39,9 @@ bindkey '^[[1;5D' backward-word      # Ctrl + Left Arrow para retroceder una pal
 bindkey '^H' backward-kill-word      # Ctrl + Backspace para borrar la palabra anterior
 bindkey '^[[3;5~' kill-word          # Ctrl + Delete para borrar la palabra siguiente
 
+# elimintar caracter con suprimir
+bindkey '^[[3~' delete-char
+
 # Configurar el prompt
 function set_prompt {
   local prompt_root="%F{yellow}%n@%m %F{blue}%~%f # "
@@ -60,8 +63,10 @@ add-zsh-hook chpwd set_prompt
 
 # Cambiar el path
 export PATH="$PATH:/home/$USER/.local/bin"
-. "/home/pedrofm/.deno/env"
 . "$HOME/.atuin/bin/env"
+. "/usr/lib/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu/bin"
+
+export GOPATH="$HOME/.go"
 
 export EDITOR="vi"
 
@@ -77,4 +82,4 @@ fi
 
 alias ls="ls -1 --color=auto -p"
 
-eval "$(atuin init zsh)"
+

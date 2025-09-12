@@ -1,9 +1,0 @@
-noremap j h
-noremap k j
-noremap l k
-noremap ñ l
-
-xnoremap j h
-xnoremap k j
-xnoremap l k
-xnoremap ñ l
