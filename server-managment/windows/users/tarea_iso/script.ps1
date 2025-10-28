@@ -16,36 +16,51 @@ if ($GroupName -eq "") {
     exit 
 }
 
-if (Get-LocalGroup -Name $GroupName -ErrorAction SilentlyContinue -not) {
+if (-not (Get-LocalGroup -Name $GroupName -ErrorAction SilentlyContinue)) {
     New-LocalGroup -Name $GroupName
+    Write-Host "Group '$GroupName' created"
 }
 
-$usersList = Import-Csv -Path $UsersFilePath
+if (-not (Test-Path -LiteralPath $UsersFilePath)) { 
+    Write-Error "Users file not found: $UsersFilePath"; 
+    return 
+}
+
+$usersList = Import-Csv -Path $UsersFilePath -Delimiter ","
 
 foreach ($userEntry in $usersList) {
     $FullName = "$($userEntry.Nom) $($userEntry.Cognom1) $($userEntry.Cognom2)"
     $LoginName = "$($userEntry.Nom.Substring(1))$($userEntry.Cognom1.Substring(3))$($userEntry.Cognom2.Substring(3))"
     $Description = "Localitat: $($userEntry.Localitat); Tel: $($userEntry.Tel)"
-    $Password = ConvertTo-SecureString -String "$($userEntry.Cognom1)"
+    $Password = ConvertTo-SecureString -String "$($userEntry.Cognom1)" -AsPlainText -Force
 
-    if ($LoginName -eq "") {
+    if ([string]::IsNullOrWhiteSpace($LoginName)) {
         Write-Error "Login Name not defined"
-        exit
+        continue
     }
 
-    New-LocalUser -Name $LoginName -Password $Password -FullName $FullName -Description $Description 
-    Write-Host "$($LoginName) created"
+    # Create user if missing
+    if (-not (Get-LocalUser -Name $LoginName -ErrorAction SilentlyContinue)) {
+        New-LocalUser -Name $LoginName -Password $Password -FullName $FullName -Description $Description
+        Write-Host "$LoginName created"
+    } else {
+        Write-Host "$LoginName already exists"
+        continue
+    }
 
     # Manage group 
     $SecondaryGroupName = "$($userEntry.Groups)"
-    if (($SecondaryGroupName -ne "") -and (Get-LocalGroup -Name $SecondaryGroupName -ErrorAction SilentlyContinue -not)) {
-        New-LocalGroup -Name $SecondaryGroupName
-        Write-Host "$($SecondaryGroupName) group created"
+    if (-not ([string]::IsNullOrWhiteSpace($SecondaryGroupName))) {
+        if (-not (Get-LocalGroup -Name $SecondaryGroupName -ErrorAction SilentlyContinue)) {
+            New-LocalGroup -Name $SecondaryGroupName
+            Write-Host "$($SecondaryGroupName) group created"    
+        }
+
+        Add-LocalGroupMember -Group $SecondaryGroupName -Member $LoginName
+        Write-Host "$($LoginName) added to group $($SecondaryGroupName)"
     } 
 
     # Add user to groups
-    Add-LocalGroupMember -Group $SecondaryGroupName -Member $LoginName
-    Write-Host "$($LoginName) added to group $($SecondaryGroupName)"
     Add-LocalGroupMember -Group $GroupName -Member $LoginName
     Write-Host "$($LoginName) added to group $($GroupName)"
 }
