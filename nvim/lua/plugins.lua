@@ -20,15 +20,6 @@ require("lazy").setup({
         "onsails/lspkind.nvim",
         event = { "VimEnter" },
     },
-    -- lsp zero
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
-        config = function()
-            require("config.lsp-zero")
-        end,
-    },
-
     -- Auto-completion engine
     {
         "hrsh7th/nvim-cmp",

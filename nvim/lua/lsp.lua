@@ -10,11 +10,35 @@ require("mason").setup({
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup({
-    ensure_installed = { "pylsp", "lua_ls", "clangd", "html", "cssls", "ts_ls", "bashls", "powershell_es", "gopls", "phpactor" },
+    ensure_installed = { "lua_ls", "clangd", "html", "cssls", "ts_ls", "bashls", "powershell_es", "gopls", "intelephense" },
     capabilities = lsp_capabilities,
 })
 
 local lspconfig = require("lspconfig");
+
+for _, server in ipairs({ "lua_ls", "clangd", "html", "cssls", "bashls", "powershell_es", "gopls" }) do
+    if lspconfig[server] then
+        lspconfig[server].setup({})
+    end
+
+end
+
+-- Configuración para intelephense
+local get_intelephense_license_key = function()
+    local f = assert(io.open(os.getenv("HOME") .. "/intelephense/license.txt", "rb"))
+    local content = f:read("*a")
+    f:close()
+    return string.gsub(content, "%s+", "")
+end
+
+lspconfig.intelephense.setup({
+    capabilities = lsp_capabilities,
+    init_options = {
+        -- Licence key must be passed via init_options per lspconfig docs
+        licenceKey = get_intelephense_license_key() 
+    }
+})
+
 -- Configuración para el servidor denols
 lspconfig.denols.setup({
     settings = {
@@ -53,8 +77,8 @@ lspconfig.ts_ls.setup({
             return nil
         end
 
-        -- Si no es Deno, entonces permitimos tsserver en cualquier carpeta (con o sin package.json)
-        return lspconfig.util.root_pattern("package.json", ".git")(filename) or vim.loop.cwd()
+        -- Solo adjuntar tsserver en proyectos Node/TS
+        return lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")(filename)
     end,
     single_file_support = false,
 })

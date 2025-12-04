@@ -18,5 +18,6 @@ conform.setup({
         python = { "isort" },
         c = { "clang-format" },
         cpp = { "clang-format" },
+        php = { "php-cs-fixer" },
     },
 })
