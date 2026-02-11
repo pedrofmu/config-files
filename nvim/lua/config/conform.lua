@@ -2,6 +2,7 @@ local conform = require("conform")
 
 conform.setup({
     formatters_by_ft = {
+        go = { "gofmt" },
         sh = { "shfmt" },
         javascript = { "prettier" },
         typescript = { "prettier" },
@@ -18,6 +19,6 @@ conform.setup({
         python = { "isort" },
         c = { "clang-format" },
         cpp = { "clang-format" },
-        php = { "php-cs-fixer" },
+        php = { "php_cs_fixer", lsp_format = "prefer" },
     },
 })
