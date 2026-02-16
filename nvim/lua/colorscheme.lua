@@ -15,18 +15,4 @@ require("onedarkpro").setup({
   end
 })
 
-
--- Run shell command to detect KDE theme
-local handle = io.popen("kreadconfig5 --file kdeglobals --group KDE --key LookAndFeelPackage")
-local theme = handle:read("*a"):gsub("%s+", "")  -- trim spaces/newlines
-handle:close()
-
-if theme == "org.kde.breeze.desktop" then
-  vim.cmd("colorscheme onelight")
-  -- pick your light scheme
-elseif theme == "org.kde.breezedark.desktop" then
-  vim.cmd("colorscheme onedark") 
-else
-  vim.cmd("colorscheme onedark")
-end
-
+vim.cmd("colorscheme onedark")

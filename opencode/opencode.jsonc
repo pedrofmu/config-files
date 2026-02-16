@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": "ask",
+    "webfetch": "allow",
+    "skill": "allow",
+    "todowrite": "allow",
+    "todoread": "allow",
+    "websearch": "allow",
+    "question": "allow"
+  },
+  "mcp": {
+    "chromium-mcp": {
+      "type": "remote",
+      "url": "http://127.0.0.1:12306/mcp",
+      "enabled": false,
+    },
+  },
+}
