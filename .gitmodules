@@ -1,0 +1,3 @@
+[submodule "opencode/skills/never-assume~"]
+	path = opencode/skills/never-assume~
+	url = https://github.com/pedrofmu/never-assume-skill.git

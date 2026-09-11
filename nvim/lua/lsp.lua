@@ -9,19 +9,76 @@ require("mason").setup({
 })
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+lsp_capabilities.general = lsp_capabilities.general or {}
+lsp_capabilities.general.positionEncodings = { "utf-16" }
+
+local function get_python_path(root_dir)
+    local candidates = {}
+
+    if root_dir then
+        table.insert(candidates, root_dir .. "/.venv/bin/python")
+        table.insert(candidates, root_dir .. "/.venv/bin/python3")
+    end
+
+    if vim.env.VIRTUAL_ENV then
+        table.insert(candidates, vim.env.VIRTUAL_ENV .. "/bin/python")
+        table.insert(candidates, vim.env.VIRTUAL_ENV .. "/bin/python3")
+    end
+
+    table.insert(candidates, vim.fn.exepath("python3"))
+    table.insert(candidates, vim.fn.exepath("python"))
+
+    for _, path in ipairs(candidates) do
+        if path and path ~= "" and (vim.uv or vim.loop).fs_stat(path) then
+            return path
+        end
+    end
+end
+
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "clangd", "html", "cssls", "ts_ls", "bashls", "powershell_es", "gopls", "intelephense" },
-    capabilities = lsp_capabilities,
+    ensure_installed = { "lua_ls", "clangd", "html", "cssls", "ts_ls", "bashls", "powershell_es", "gopls", "intelephense", "pyright", "ruff" },
 })
 
 local lspconfig = require("lspconfig");
 
 for _, server in ipairs({ "lua_ls", "clangd", "html", "cssls", "bashls", "powershell_es", "gopls" }) do
     if lspconfig[server] then
-        lspconfig[server].setup({})
+        lspconfig[server].setup({
+            capabilities = lsp_capabilities,
+        })
     end
 
 end
+
+lspconfig.pyright.setup({
+    capabilities = lsp_capabilities,
+    on_new_config = function(config, root_dir)
+        local python_path = get_python_path(root_dir)
+        if python_path then
+            config.settings = config.settings or {}
+            config.settings.python = config.settings.python or {}
+            config.settings.python.pythonPath = python_path
+        end
+    end,
+    settings = {
+        python = {
+            analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                typeCheckingMode = "basic",
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
+})
+
+lspconfig.ruff.setup({
+    capabilities = lsp_capabilities,
+    on_attach = function(client)
+        client.server_capabilities.hoverProvider = false
+    end,
+})
 
 -- Configuración para intelephense
 local get_intelephense_license_key = function()
